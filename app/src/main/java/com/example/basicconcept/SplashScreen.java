@@ -1,10 +1,12 @@
 package com.example.basicconcept;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 public class SplashScreen extends Activity {
     @Override
@@ -17,6 +19,20 @@ public class SplashScreen extends Activity {
 
         // Set the content view to the splash screen layout
         setContentView(R.layout.splash_screen);
+
+        //Progress Bar
+        ProgressBar progressBar = findViewById(R.id.linearprogressBar);
+        // ValueAnimator to animate progress
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+        animator.setDuration(2000); // 2 seconds
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                progressBar.setProgress((int) animation.getAnimatedValue());
+            }
+        });
+        animator.start();
+
 
         // Delay for 2 seconds before transitioning to the main activity
         new Handler().postDelayed(new Runnable() {
